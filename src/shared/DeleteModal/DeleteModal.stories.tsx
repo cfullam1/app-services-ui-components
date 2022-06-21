@@ -16,7 +16,7 @@ export default {
   component: DeleteModal,
   subcomponents: { DeleteModalConfirmation },
   args: {
-    title: "Delete?",
+    title: "Delete [resource]?",
     children: "You are deleting something.",
     disableFocusTrap: true,
   },
@@ -162,7 +162,7 @@ const fillConfirmation: PlayFunction<
   DeleteModalProps
 > = async ({ canvasElement, args }) => {
   const story = within(canvasElement);
-  const confirmationValue = args.confirmationValue || "digit this";
+  const confirmationValue = args.confirmationValue || "resource_name";
   await userEvent.type(
     await story.findByLabelText(`Type ${confirmationValue} to confirm`),
     confirmationValue
@@ -189,14 +189,14 @@ always fail.
 
 export const SynchronousDeleteWithConfirmation = Template.bind({});
 SynchronousDeleteWithConfirmation.args = {
-  confirmationValue: "digit this",
+  confirmationValue: "resource_name",
   ...SynchronousDelete.args,
 };
 SynchronousDeleteWithConfirmation.parameters = {
   docs: {
     description: {
       story: `It is possible to ask the user to type something to enable the
-disable button. In this demo you should be typing \`digit this\`.
+disable button. In this demo you should be typing \`resource_name\`.
       `,
     },
   },
@@ -213,7 +213,7 @@ SynchronousDeleteWithConfirmationAndError.parameters = {
   docs: {
     description: {
       story: `It is possible to ask the user to type something to enable the
-disable button. In this demo you should be typing \`digit this\`.
+disable button. In this demo you should be typing \`resource_name\`.
 
 If the delete action fails, it's possible to show an inline error. The user can
 then try again or cancel the action. In this demo the delete will always fail.
@@ -266,7 +266,7 @@ AsynchronousDeleteWithConfirmation.parameters = {
   docs: {
     description: {
       story: `It is possible to ask the user to type something to enable the
-disable button. In this demo you should be typing \`digit this\`.
+disable button. In this demo you should be typing \`resource_name\`.
       `,
     },
   },
@@ -284,7 +284,7 @@ AsynchronousDeleteWithConfirmationAndError.parameters = {
   docs: {
     description: {
       story: `It is possible to ask the user to type something to enable the
-disable button. In this demo you should be typing \`digit this\`.
+disable button. In this demo you should be typing \`resource_name\`.
 
 If the delete action fails, it's possible to show an inline error.
 The user can then try again or cancel the action. In this demo the delete will
@@ -302,7 +302,7 @@ CustomConfirmationPlacement.args = {
     <div>
       <p>You are deleting something.</p>
       <p>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>
-      <DeleteModalConfirmation requiredConfirmationValue="digit this" />
+      <DeleteModalConfirmation requiredConfirmationValue="resource_name" />
       <p>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>
       <p>This goes after the confirmation</p>
     </div>
@@ -330,7 +330,10 @@ CustomConfirmationPlacementWithAutomaticSpacing.args = {
   children: [
     <p key={0}>You are deleting something.</p>,
     <p key={1}>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>,
-    <DeleteModalConfirmation key={2} requiredConfirmationValue="digit this" />,
+    <DeleteModalConfirmation
+      key={2}
+      requiredConfirmationValue="resource_name"
+    />,
     <p key={3}>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>,
     <p key={4}>This goes after the confirmation</p>,
   ],
